@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/api/usuario")
 public class UsuarioController {
 
     @Autowired
@@ -40,11 +40,6 @@ public class UsuarioController {
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(usuarioService.buscarPorId(id));
-    }
-
-    @PostMapping("/autenticar")
-    public ResponseEntity<Usuario> autenticar(@RequestParam String email) {
-        return ResponseEntity.ok(usuarioService.autenticar(email));
     }
 
 }

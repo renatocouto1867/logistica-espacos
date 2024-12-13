@@ -54,17 +54,6 @@ public class UsuarioService {
     }
 
 
-    public Usuario autenticar(String email) {
-        Usuario usuario = usuarioRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("Credenciais inválidas"));
-
-        if (usuario.getStatusUsuario() == StatusUsuario.INATIVO) {
-            throw new IllegalStateException("Usuário está inativo e não pode autenticar.");
-        }
-
-        return usuario;
-    }
-
     // Listar reservas associadas a um usuário
     public List<Reserva> listarReservasDoUsuario(Long usuarioId) {
         Usuario usuario = usuarioRepository.findById(usuarioId)
