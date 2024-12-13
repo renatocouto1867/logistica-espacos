@@ -2,6 +2,7 @@ package com.ntw.logistica_espacos.controller;
 
 import com.ntw.logistica_espacos.model.entity.Usuario;
 import com.ntw.logistica_espacos.model.service.UsuarioService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/usuario")
+@Tag(name = "Usuário", description = "Métodos disponíveis para Usuário")
 public class UsuarioController {
 
     @Autowired
