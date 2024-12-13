@@ -1,12 +1,13 @@
 package com.ntw.logistica_espacos.model.service;
 
 
+import com.ntw.logistica_espacos.exception.ConflictException;
+import com.ntw.logistica_espacos.exception.NotFoundException;
 import com.ntw.logistica_espacos.model.entity.Reserva;
 import com.ntw.logistica_espacos.model.entity.dto.RelatorioReservaDTO;
 import com.ntw.logistica_espacos.model.entity.enuns.StatusReserva;
 import com.ntw.logistica_espacos.model.entity.enuns.TipoEspaco;
 import com.ntw.logistica_espacos.model.repository.ReservaRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,15 +21,15 @@ public class ReservaService {
     @Autowired
     private ReservaRepository reservaRepository;
 
-    public Reserva criarReserva(Reserva reserva) {
+    public Reserva cadastrarReserva(Reserva reserva) {
         verificarConflitos(reserva); // Validação de conflitos
         reserva.setStatus(StatusReserva.PENDENTE); // Status inicial
         return reservaRepository.save(reserva);
     }
 
-    public Reserva atualizarReserva(Long id, Reserva novaReserva) {
+    public Reserva editarReserva(Long id, Reserva novaReserva) {
         Reserva reservaExistente = reservaRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Reserva não encontrada"));
+                .orElseThrow(() -> new NotFoundException("Reserva não encontrada!"));
 
         verificarConflitos(novaReserva);
         reservaExistente.setNomeEvento(novaReserva.getNomeEvento());
@@ -45,18 +46,18 @@ public class ReservaService {
 
     public void cancelarReserva(Long id) {
         Reserva reserva = reservaRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Reserva não encontrada"));
+                .orElseThrow(() -> new NotFoundException("Reserva não encontrada"));
         reserva.setStatus(StatusReserva.CANCELADA);
         reservaRepository.save(reserva);
     }
 
-    public List<Reserva> listarReservas() {
+    public List<Reserva> obterReservas() {
         return reservaRepository.findAll();
     }
 
-    public Reserva buscarPorId(Long id) {
+    public Reserva obterPorId(Long id) {
         return reservaRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Reserva não encontrada"));
+                .orElseThrow(() -> new NotFoundException("Reserva não encontrada"));
     }
 
     // aqui e Verificado os conflitos de horário
@@ -67,7 +68,7 @@ public class ReservaService {
                         novaReserva.getDataTermino());
 
         if (!reservasConflitantes.isEmpty()) {
-            throw new IllegalStateException("Já existe uma reserva para esse espaço no período selecionado");
+            throw new ConflictException("Já existe uma reserva para esse espaço no período selecionado");
         }
     }
 
@@ -102,6 +103,4 @@ public class ReservaService {
         }
         return relatorioDTOs;
     }
-
-
 }

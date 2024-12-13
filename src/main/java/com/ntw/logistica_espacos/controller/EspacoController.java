@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/espaco")
@@ -18,12 +17,12 @@ public class EspacoController {
     private EspacoService espacoService;
 
     @PostMapping
-    public ResponseEntity<Espaco> criarEspaco(@RequestBody Espaco espaco) {
+    public ResponseEntity<Espaco> cadastrarEspaco(@RequestBody Espaco espaco) {
         return ResponseEntity.ok(espacoService.criarEspaco(espaco));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Espaco> atualizarEspaco(@PathVariable Long id, @RequestBody Espaco espaco) {
+    public ResponseEntity<Espaco> editarEspaco(@PathVariable Long id, @RequestBody Espaco espaco) {
         return ResponseEntity.ok(espacoService.atualizarEspaco(id, espaco));
     }
 
@@ -34,16 +33,14 @@ public class EspacoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Espaco>> listarTodos() {
+    public ResponseEntity<List<Espaco>> obterEspacos() {
         return ResponseEntity.ok(espacoService.listarTodos());
     }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<Espaco> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(espacoService.buscarPorId(id));
     }
-
 
 }
 

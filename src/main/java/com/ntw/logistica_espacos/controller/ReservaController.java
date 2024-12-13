@@ -22,13 +22,13 @@ public class ReservaController {
     private ReservaService reservaService;
 
     @PostMapping
-    public ResponseEntity<Reserva> criarReserva(@RequestBody Reserva reserva) {
-        return ResponseEntity.ok(reservaService.criarReserva(reserva));
+    public ResponseEntity<Reserva> cadastrarReserva(@RequestBody Reserva reserva) {
+        return ResponseEntity.ok(reservaService.cadastrarReserva(reserva));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Reserva> atualizarReserva(@PathVariable Long id, @RequestBody Reserva reserva) {
-        return ResponseEntity.ok(reservaService.atualizarReserva(id, reserva));
+    public ResponseEntity<Reserva> editarReserva(@PathVariable Long id, @RequestBody Reserva reserva) {
+        return ResponseEntity.ok(reservaService.editarReserva(id, reserva));
     }
 
     //so desativo a reserva
@@ -38,15 +38,14 @@ public class ReservaController {
         return ResponseEntity.noContent().build();
     }
 
-
     @GetMapping
-    public ResponseEntity<List<Reserva>> listarReservas() {
-        return ResponseEntity.ok(reservaService.listarReservas());
+    public ResponseEntity<List<Reserva>> obterReservas() {
+        return ResponseEntity.ok(reservaService.obterReservas());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Reserva> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(reservaService.buscarPorId(id));
+    public ResponseEntity<Reserva> obterPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(reservaService.obterPorId(id));
     }
 
     @GetMapping("/relatorio")
@@ -62,7 +61,7 @@ public class ReservaController {
     }
 
     //como é uma API, não deveolve uma tabela, ai fiz essa versão simplificada.
-    @GetMapping("/relatoriotabela")
+    @GetMapping("/relatorio/tabela")
     public ResponseEntity<List<RelatorioReservaDTO>> gerarRelatorioTabela(
             @RequestParam(required = false) LocalDateTime dataInicio,
             @RequestParam(required = false) LocalDateTime dataTermino,
@@ -74,7 +73,6 @@ public class ReservaController {
         List<RelatorioReservaDTO> relatorioDTOs = reservaService.gerarRelatorioDTO(reservas);
         return ResponseEntity.ok(relatorioDTOs);
     }
-
 
 }
 
