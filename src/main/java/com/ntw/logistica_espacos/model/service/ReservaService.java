@@ -1,13 +1,12 @@
 package com.ntw.logistica_espacos.model.service;
 
 
-import com.ntw.logistica_espacos.exception.ConflictException;
-import com.ntw.logistica_espacos.exception.NotFoundException;
 import com.ntw.logistica_espacos.model.entity.Reserva;
 import com.ntw.logistica_espacos.model.entity.dto.RelatorioReservaDTO;
 import com.ntw.logistica_espacos.model.entity.enuns.StatusReserva;
 import com.ntw.logistica_espacos.model.entity.enuns.TipoEspaco;
 import com.ntw.logistica_espacos.model.repository.ReservaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +28,7 @@ public class ReservaService {
 
     public Reserva editarReserva(Long id, Reserva novaReserva) {
         Reserva reservaExistente = reservaRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Reserva não encontrada!"));
+                .orElseThrow(() -> new EntityNotFoundException("Reserva não encontrada!"));
 
         verificarConflitos(novaReserva);
         reservaExistente.setNomeEvento(novaReserva.getNomeEvento());
@@ -46,7 +45,7 @@ public class ReservaService {
 
     public void cancelarReserva(Long id) {
         Reserva reserva = reservaRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Reserva não encontrada"));
+                .orElseThrow(() -> new EntityNotFoundException("Reserva não encontrada"));
         reserva.setStatus(StatusReserva.CANCELADA);
         reservaRepository.save(reserva);
     }
@@ -57,7 +56,7 @@ public class ReservaService {
 
     public Reserva obterPorId(Long id) {
         return reservaRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Reserva não encontrada"));
+                .orElseThrow(() -> new EntityNotFoundException("Reserva não encontrada"));
     }
 
     // aqui e Verificado os conflitos de horário
@@ -68,7 +67,7 @@ public class ReservaService {
                         novaReserva.getDataTermino());
 
         if (!reservasConflitantes.isEmpty()) {
-            throw new ConflictException("Já existe uma reserva para esse espaço no período selecionado");
+            throw new IllegalArgumentException("Já existe uma reserva para esse espaço no período selecionado");
         }
     }
 
