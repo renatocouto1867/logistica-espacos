@@ -38,6 +38,7 @@ public class EspacoService {
         espaco.setDataProcedimento(novoEspaco.getDataProcedimento());
         espaco.setNotasAdicionais(novoEspaco.getNotasAdicionais());
         espaco.setLocalizacao(novoEspaco.getLocalizacao());
+        espaco.setRecursosDisponiveis(novoEspaco.getRecursosDisponiveis());
         return espacoRepository.save(espaco);
     }
 
