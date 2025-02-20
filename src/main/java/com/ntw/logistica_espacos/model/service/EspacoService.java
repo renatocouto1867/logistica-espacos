@@ -31,6 +31,13 @@ public class EspacoService {
         Espaco espaco = espacoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Espaço não encontrado."));
         espaco.setNome(novoEspaco.getNome());
         espaco.setDescricao(novoEspaco.getDescricao());
+        espaco.setCapacidade(novoEspaco.getCapacidade());
+        espaco.setStatus(novoEspaco.getStatus());
+        espaco.setDataCadastro(novoEspaco.getDataCadastro());
+        espaco.setTipo(novoEspaco.getTipo());
+        espaco.setDataProcedimento(novoEspaco.getDataProcedimento());
+        espaco.setNotasAdicionais(novoEspaco.getNotasAdicionais());
+        espaco.setLocalizacao(novoEspaco.getLocalizacao());
         return espacoRepository.save(espaco);
     }
 

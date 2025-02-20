@@ -7,7 +7,7 @@ INSERT INTO espaco (capacidade, data_cadastro, data_procedimento, descricao, loc
 INSERT INTO espaco (capacidade, data_cadastro, data_procedimento, descricao, localizacao, nome, notas_adicionais, status, tipo) VALUES (150, '2024-01-10', '2024-01-10', 'Auditório com sistema de som completo e palco', 'Prédio Principal - Térreo', 'Auditório Principal', 'Ideal para eventos de grande porte', 'ATIVO', 'AUDITORIO')
 INSERT INTO espaco (capacidade, data_cadastro, data_procedimento, descricao, localizacao, nome, notas_adicionais, status, tipo) VALUES (20, '2024-02-01', '2024-02-15', 'Laboratório equipado com 20 computadores', 'Bloco B - 2º Andar', 'Laboratório de Informática', 'Manutenção programada', 'MANUTENCAO', 'LABORATORIO')
 
-INSERT INTO recurso (descricao, nome) VALUES ('Equipamento para projeção de imagens', 'Projetor')
+INSERT INTO recurso (descricao, nome) VALUES (' ', 'Projetor')
 INSERT INTO recurso (descricao, nome) VALUES ('Sistema de climatização', 'Ar Condicionado')
 INSERT INTO recurso (descricao, nome) VALUES ('Sistema de amplificação de áudio', 'Sistema de Som')
 INSERT INTO recurso (descricao, nome) VALUES ('Extruta para apresentação', 'Palco')
